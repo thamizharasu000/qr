@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Modern Link and UPI Payment QR Generator">
+  <title>QR Generator</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero">
+      <div class="badge">QR GENERATOR</div>
+      <h1>Generate QR codes in seconds.</h1>
+      <p>Create website QR codes or fixed-amount UPI payment QR codes with real module styles.</p>
+    </section>
+
+    <section class="card" aria-label="QR generator">
+      <div class="tabs" role="tablist" aria-label="QR type">
+        <button id="linkTab" class="tab active" type="button" role="tab" aria-selected="true" aria-controls="linkPanel">Link QR</button>
+        <button id="upiTab" class="tab" type="button" role="tab" aria-selected="false" aria-controls="upiPanel">UPI Payment QR</button>
+      </div>
+
+      <div id="libraryError" class="alert error" role="alert" hidden>
+        QR library could not be loaded. Please check your internet connection and refresh.
+      </div>
+
+      <section id="linkPanel" class="panel" role="tabpanel" aria-labelledby="linkTab">
+        <h2>Link QR</h2>
+        <div class="field">
+          <label for="linkInput">Website / Link</label>
+          <input id="linkInput" type="text" inputmode="url" autocomplete="url" placeholder="https://example.com">
+        </div>
+        <div class="style-block">
+          <span class="field-label">QR Style</span>
+          <div id="linkStyles" class="style-grid" role="group" aria-label="Link QR styles">
+            <button class="style-btn active" type="button" data-style="square" aria-pressed="true">Square</button>
+            <button class="style-btn" type="button" data-style="rounded" aria-pressed="false">Rounded</button>
+            <button class="style-btn" type="button" data-style="dots" aria-pressed="false">Dots</button>
+            <button class="style-btn" type="button" data-style="extra-rounded" aria-pressed="false">Extra Rounded</button>
+          </div>
+        </div>
+        <button id="generateLink" class="primary-btn" type="button">Generate QR</button>
+      </section>
+
+      <section id="upiPanel" class="panel" role="tabpanel" aria-labelledby="upiTab" hidden>
+        <h2>UPI Payment QR</h2>
+        <div class="field">
+          <label for="upiId">UPI ID</label>
+          <input id="upiId" type="text" autocomplete="off" placeholder="abc@upi">
+        </div>
+        <div class="field">
+          <label for="upiName">Name</label>
+          <input id="upiName" type="text" autocomplete="name" placeholder="Tamil">
+        </div>
+        <div class="field">
+          <label for="upiAmount">Amount</label>
+          <input id="upiAmount" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="100">
+        </div>
+        <div class="style-block">
+          <span class="field-label">QR Style</span>
+          <div id="upiStyles" class="style-grid" role="group" aria-label="UPI QR styles">
+            <button class="style-btn active" type="button" data-style="square" aria-pressed="true">Square</button>
+            <button class="style-btn" type="button" data-style="rounded" aria-pressed="false">Rounded</button>
+            <button class="style-btn" type="button" data-style="dots" aria-pressed="false">Dots</button>
+            <button class="style-btn" type="button" data-style="extra-rounded" aria-pressed="false">Extra Rounded</button>
+          </div>
+        </div>
+        <button id="generateUpi" class="primary-btn" type="button">Generate Payment QR</button>
+      </section>
+
+      <div id="message" class="message" role="status" aria-live="polite"></div>
+
+      <section id="result" class="result" hidden aria-live="polite">
+        <div id="resultTitle" class="result-title">QR Generated</div>
+        <button id="qrPreview" class="qr-preview" type="button" aria-label="Open generated QR in fullscreen"></button>
+        <div id="resultDetails" class="details"></div>
+        <div class="action-row">
+          <button id="downloadBtn" class="secondary-btn" type="button">Download</button>
+          <button id="shareBtn" class="secondary-btn" type="button">Share</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-backdrop" data-close="true"></div>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="modalTitle">QR</h2>
+        <button id="closeModal" class="icon-btn" type="button" aria-label="Close fullscreen QR">×</button>
+      </div>
+      <div id="modalQr" class="modal-qr"></div>
+      <div class="action-row">
+        <button id="modalDownload" class="secondary-btn" type="button">Download</button>
+        <button id="modalShare" class="secondary-btn" type="button">Share</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.9.2/lib/qr-code-styling.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
